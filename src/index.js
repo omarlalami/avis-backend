@@ -5,7 +5,10 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const mysql = require('mysql2/promise');
 
-dotenv.config();
+
+dotenv.config(); // Assure-toi que cette ligne est bien avant d’utiliser process.env
+
+const CLIENT_URL = process.env.CLIENT_URL;
 
 const app = express();
 // a appeler avant tout autre app.use pour appliquer helmet sur les routes
@@ -18,7 +21,7 @@ app.use('/api', authRouter); */
 // Middlewares
 //app.use(cors());
 app.use(cors({
-  origin: 'http://localhost:3000', // ou l'URL de ton frontend en production
+  origin: CLIENT_URL,
   optionsSuccessStatus: 200,
   credentials: true
 }));
