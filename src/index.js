@@ -22,6 +22,9 @@ app.use(cors({
   optionsSuccessStatus: 200,
   credentials: true
 }));
+
+app.set('trust proxy', 1); // À activer si tu es derrière un proxy (Heroku, Render, etc.)
+
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect('https://' + req.headers.host + req.url);
