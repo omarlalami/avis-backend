@@ -7,13 +7,17 @@ function anonymizeEmail(email) {
   const [localPart, domain] = email.split('@');
   if (!localPart || !domain) return email;
 
-  if (localPart.length <= 2) {
-    return `${localPart[0]}`;
+  return localPart;
+
+  //return localPart.slice(0, 6);
+
+/*   if (localPart.length <= 6) {
+    return `${localPart}`;
   }
 
   const first = localPart[0];
   const last = localPart[localPart.length - 1];
-  return `${first}***${last}`;
+  return `${first}***${last}`;  */
 }
 
 // GET /api/avis/:phone
@@ -30,9 +34,10 @@ router.get('/:phone', verifyToken, async (req, res) => {
     // Vérifier si le client existe
     const [clientRows] = await db.execute('SELECT * FROM clients WHERE phone = ?', [phone]);
 
-    if (clientRows.length === 0) {
-      return res.status(404).json({ message: 'Aucun avis trouvé pour ce numéro.' });
-    }
+/*     if (clientRows.length === 0) {
+      //      return;
+      //return res.status(404).json({ message: 'Aucun avis trouvé pour ce numéro.' });
+    } */
 
     // Récupérer les avis liés à ce client
     const [avisRows] = await db.execute(
